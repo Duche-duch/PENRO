@@ -22,6 +22,18 @@ const formatSignatureDate = (dateStr?: string) => {
   });
 };
 
+const isRenderableImageSrc = (value?: string) => {
+  if (!value) return false;
+  const src = value.trim();
+  return (
+    src.startsWith('http://') ||
+    src.startsWith('https://') ||
+    src.startsWith('data:image/') ||
+    src.startsWith('blob:') ||
+    src.startsWith('/')
+  );
+};
+
 export function LeaveApplicationPrintableDocument({
   application,
   documentId = 'leave-application-print',
@@ -103,7 +115,7 @@ export function LeaveApplicationPrintableDocument({
       <div className="mt-4 grid grid-cols-2 gap-8 text-[12px] avoid-page-break">
         <div>
           <p className="font-semibold mb-2">Recommending Approval</p>
-          {application.chiefSignature ? (
+          {isRenderableImageSrc(application.chiefSignature) ? (
             <img src={application.chiefSignature} alt="Chief Signature" className="h-12 object-contain mb-1" />
           ) : (
             <div className="h-12" />
@@ -115,7 +127,7 @@ export function LeaveApplicationPrintableDocument({
         </div>
         <div>
           <p className="font-semibold mb-2">Approved</p>
-          {application.penrSignature ? (
+          {isRenderableImageSrc(application.penrSignature) ? (
             <img src={application.penrSignature} alt="PENR Signature" className="h-12 object-contain mb-1" />
           ) : (
             <div className="h-12" />
@@ -141,7 +153,7 @@ export function LeaveApplicationPrintableDocument({
           <img src={qrCodeSrc} alt="Leave application QR code" className="w-[90px] h-[90px] border border-black p-1" />
         </div>
         <div className="text-[12px]">
-          {application.employeeSignature ? (
+          {isRenderableImageSrc(application.employeeSignature) ? (
             <img src={application.employeeSignature} alt="Employee Signature" className="h-12 object-contain mb-1" />
           ) : (
             <div className="h-12" />
