@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface LeaveApplicationPrintableDocumentProps {
   application: any;
   documentId?: string;
@@ -26,6 +28,8 @@ export function LeaveApplicationPrintableDocument({
   application,
   documentId = 'leave-application-print',
 }: LeaveApplicationPrintableDocumentProps) {
+  const [denrLogoSrc, setDenrLogoSrc] = useState('/print-logos/DENR.png');
+  const [bagongPilipinasLogoSrc, setBagongPilipinasLogoSrc] = useState('/print-logos/Bagong_Pilipinas_logo.png');
   const referenceNumber = application.id?.replace('LA-', 'No. ') || 'No. N/A';
   const qrPayload = encodeURIComponent(
     JSON.stringify({
@@ -36,9 +40,6 @@ export function LeaveApplicationPrintableDocument({
     }),
   );
   const qrCodeSrc = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${qrPayload}`;
-  const denrLogoSrc = '/print%20logos/DENR.png';
-  const bagongPilipinasLogoSrc = '/print%20logos/Bagong_Pilipinas_logo.png';
-
   return (
     <div
       id={documentId}
@@ -47,7 +48,14 @@ export function LeaveApplicationPrintableDocument({
     >
       <div className="border-b border-black pb-3">
         <div className="grid grid-cols-[78px_1fr_110px] items-center gap-3">
-          <img src={denrLogoSrc} alt="DENR logo" className="w-[76px] h-[76px] object-contain" />
+          <img
+            src={denrLogoSrc}
+            alt="DENR logo"
+            className="w-[76px] h-[76px] object-contain"
+            onError={() => {
+              if (denrLogoSrc.endsWith('.png')) setDenrLogoSrc('/print-logos/DENR.svg');
+            }}
+          />
           <div className="text-center leading-tight">
             <p className="text-[14px]">Republic of the Philippines</p>
             <p className="text-[16px] font-semibold tracking-wide">DEPARTMENT OF ENVIRONMENT AND NATURAL RESOURCES</p>
@@ -55,7 +63,14 @@ export function LeaveApplicationPrintableDocument({
             <p className="text-[12px]">PCCARDC, Balintawak, Pagadian City 7016 Zamboanga del Sur</p>
             <p className="text-[12px]">(062) 945-0970 Fax No. (062) 945-0945</p>
           </div>
-          <img src={bagongPilipinasLogoSrc} alt="Bagong Pilipinas logo" className="w-[108px] h-[76px] object-contain justify-self-end" />
+          <img
+            src={bagongPilipinasLogoSrc}
+            alt="Bagong Pilipinas logo"
+            className="w-[108px] h-[76px] object-contain justify-self-end"
+            onError={() => {
+              if (bagongPilipinasLogoSrc.endsWith('.png')) setBagongPilipinasLogoSrc('/print-logos/Bagong_Pilipinas_logo.svg');
+            }}
+          />
         </div>
         <div className="text-center mt-2">
           <h2 className="text-[28px] leading-none font-semibold tracking-wide">LEAVE APPLICATION</h2>

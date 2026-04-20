@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="DENR logo placeholder">
+  <circle cx="150" cy="150" r="145" fill="#ffffff" stroke="#14532d" stroke-width="10" />
+  <circle cx="150" cy="150" r="115" fill="#f0fdf4" stroke="#166534" stroke-width="6" />
+  <text x="150" y="128" text-anchor="middle" font-size="28" font-family="Times New Roman, serif" fill="#14532d" font-weight="700">
+    DENR
+  </text>
+  <text x="150" y="162" text-anchor="middle" font-size="18" font-family="Times New Roman, serif" fill="#166534">
+    Region IX
+  </text>
+  <text x="150" y="188" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" fill="#166534">
+    Placeholder Seal
+  </text>
+</svg>

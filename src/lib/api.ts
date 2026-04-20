@@ -2,7 +2,8 @@
  * Central HTTP client for the Express API (proxied from Vite in development).
  */
 
-const base = import.meta.env.VITE_API_URL ?? '';
+const rawBase = import.meta.env.VITE_API_URL?.trim() ?? '';
+const base = rawBase.replace(/\/+$/, '');
 
 export class ApiError extends Error {
   constructor(
@@ -18,6 +19,13 @@ function getToken() {
 }
 
 export async function apiFetch<T = unknown>(path: string, init: RequestInit = {}): Promise<T> {
+  if (import.meta.env.PROD && !base) {
+    throw new ApiError(
+      500,
+      'API is not configured. Set VITE_API_URL in the frontend deployment environment.'
+    );
+  }
+
   const headers = new Headers(init.headers);
   const token = getToken();
   if (token) headers.set('Authorization', `Bearer ${token}`);
