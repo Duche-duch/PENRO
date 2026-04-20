@@ -26,8 +26,8 @@ export function LeaveApplicationPrintableDocument({
   application,
   documentId = 'leave-application-print',
 }: LeaveApplicationPrintableDocumentProps) {
-  const denrLogoSrc = '/print%20logos/DENR.png';
-  const bagongPilipinasLogoSrc = '/print%20logos/Bagong_Pilipinas_logo.png';
+  const denrLogoSrc = '/printlogos/DENR.png';
+  const bagongPilipinasLogoSrc = '/printlogos/Bagong_Pilipinas_logo.png';
   const referenceNumber = application.id?.replace('LA-', 'No. ') || 'No. N/A';
   const qrPayload = encodeURIComponent(
     JSON.stringify({
